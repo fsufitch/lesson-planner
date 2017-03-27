@@ -10,11 +10,11 @@ module.exports = {
   target: 'node',
   externals: {
     'electron': 'commonjs electron',
-    'sqlite3': 'commonjs sqlite3',
   },
 
   entry: {
     'main': './src/lesson-planner/main.ts',
+    'notes-window': './src/lesson-planner/notes-window/ng2renderer.ts',
   },
 
   output: {

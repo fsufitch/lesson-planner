@@ -5,7 +5,6 @@
   "description": "Simple application for lesson planning",
   "main": "build/main.bundle.js",
   "scripts": {
-    "postinstall": "install-app-deps",
     "start": "npm run build && electron ./",
     "build:watch": "npm run copy-resources && webpack --config config/webpack.config.js --progress --profile --watch",
     "build": "npm run copy-resources && webpack --config config/webpack.config.js --progress --profile",
@@ -43,6 +42,13 @@
   },
   "dependencies": {
     "rxjs": "^5.2.0",
-    "sql.js": "^0.4.0"
+    "sql.js": "^0.4.0",
+    "@angular/common": "^2.4.9",
+    "@angular/compiler": "^2.4.9",
+    "@angular/core": "^2.4.9",
+    "@angular/platform-browser": "^2.4.9",
+    "@angular/platform-browser-dynamic": "^2.4.9",
+    "reflect-metadata": "^0.1.10",
+    "zone.js": "^0.7.2"
   }
 }
