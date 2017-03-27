@@ -10,6 +10,7 @@ module.exports = {
   target: 'node',
   externals: {
     'electron': 'commonjs electron',
+    'sqlite3': 'commonjs sqlite3',
   },
 
   entry: {
@@ -35,7 +36,7 @@ module.exports = {
       { test: /\.s?css$/, loader: 'css-to-string-loader!css-loader!sass-loader' },
       { test: /\.html?$/, loader: 'html-loader' },
       { test: /\.(ttf|eot|woff2?|png|jpe?g|svg)$/, loader: 'url-loader?limit=10000' },
-      { test: /\.(txt|proto)$/, loader: 'raw-loader'}
+      { test: /\.(txt|sql|proto)$/, loader: 'raw-loader'}
     ],
   },
 

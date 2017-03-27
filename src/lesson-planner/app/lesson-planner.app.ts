@@ -1,4 +1,4 @@
-import { singleton } from 'lesson-planner/common/singleton.util';
+import { singleton } from 'lesson-planner/common/utils';
 
 import { NotesBrowserWindow } from './notes.window';
 
