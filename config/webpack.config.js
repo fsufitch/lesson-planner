@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const helpers = require('./helpers');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -41,6 +42,9 @@ module.exports = {
   },
 
   plugins: [
+    new CopyWebpackPlugin([
+      {from: 'src/res', to: 'res'},
+    ]),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new CheckerPlugin(),
   ],

@@ -1,0 +1,19 @@
+.layout-container {
+  height: 100%;
+  display: flex;
+  padding: 10px;
+
+  flex-direction: row;
+  justify-content: center;
+
+  .input-section {
+    flex-grow: 1;
+  }
+
+  .submit-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 1;
+  }
+}

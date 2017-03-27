@@ -1,0 +1,15 @@
+@import "~material-design-lite/material.min.css";
+
+.layout {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.notes-list {
+  flex-grow: 1;
+}
+
+.note-input {
+  flex-basis: 50px;
+}

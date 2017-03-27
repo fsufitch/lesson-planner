@@ -1,0 +1,14 @@
+html,
+body,
+.flex-container {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: column;
+}
