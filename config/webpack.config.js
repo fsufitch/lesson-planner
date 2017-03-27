@@ -13,7 +13,7 @@ module.exports = {
   },
 
   entry: {
-    'main': './src/lesson-planner/app/main.ts',
+    'main': './src/lesson-planner/main.ts',
   },
 
   output: {
