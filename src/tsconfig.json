@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "moduleResolution": "node",
+
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+
+        "noImplicitAny": true,
+        "noEmit": false,
+        "sourceMap": true,
+        
+        "baseUrl": ".",
+        "outDir": "../ts_built/"
+    },
+    "atom": { "rewriteTsconfig": false }
+}
