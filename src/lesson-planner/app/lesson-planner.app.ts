@@ -1,14 +1,14 @@
+import { singleton } from 'lesson-planner/common/singleton.util';
+
+import { NotesBrowserWindow } from './notes.window';
+
 export class LessonPlannerApp {
-  private constructor() {}
+  notesWindow: NotesBrowserWindow;
 
   start() {
-    console.log('hello, world!');
+    this.notesWindow = NotesBrowserWindow.getInstance();
   }
 
   static _instance: LessonPlannerApp = null;
-  static getInstance() {
-    return (!!LessonPlannerApp._instance) ?
-      (LessonPlannerApp._instance) :
-      (LessonPlannerApp._instance = new LessonPlannerApp());
-  }
+  static getInstance = singleton(LessonPlannerApp);
 }
