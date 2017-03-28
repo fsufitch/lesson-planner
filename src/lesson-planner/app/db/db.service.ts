@@ -1,7 +1,7 @@
 import { Database, QueryResults } from 'sql.js';
 import { Observable } from 'rxjs/Observable';
 
-import { singleton, observeAsync } from 'lesson-planner/common/utils';
+import { singleton, observeAsyncOnce } from 'lesson-planner/common/utils';
 import { Note } from 'lesson-planner/common/note.type';
 
 const DB_SETUP_SQL = require('./db-setup.sql');
@@ -18,7 +18,7 @@ export class DatabaseService {
   }
 
   getAllNotes() {
-    return observeAsync<QueryResults>(cb => {
+    return observeAsyncOnce<QueryResults>(cb => {
       try {
         cb(null, this.db.exec('SELECT id, body, timestamp FROM notes')[0]);
       } catch (err) {
@@ -35,6 +35,13 @@ export class DatabaseService {
       body: <string>body,
       timestamp: <number>timestamp,
     })));
+  }
+
+  addNoteNow(body: string) {
+    let timestamp = new Date().getTime();
+    let stmt = this.db.prepare('INSERT INTO notes VALUES (:id, :timestamp, :body)');
+    stmt.bind({id: null, timestamp, body});
+    stmt.run();
   }
 
   static _instance: DatabaseService = null;

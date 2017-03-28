@@ -1,8 +1,9 @@
 import * as path from 'path';
 
-import { app, BrowserWindow } from 'electron';
+import { app, ipcMain, BrowserWindow } from 'electron';
 
-import { singleton } from 'lesson-planner/common/utils';
+import { singleton, observeAsync } from 'lesson-planner/common/utils';
+import { NoteSubmittedMessage, AllNotesMessage } from 'lesson-planner/common/ipc';
 import { DatabaseService } from 'lesson-planner/app/db';
 
 const WINDOW_OPTIONS: Electron.BrowserWindowOptions = {
@@ -13,16 +14,36 @@ const WINDOW_OPTIONS: Electron.BrowserWindowOptions = {
 
 export class NotesBrowserWindow extends BrowserWindow {
   static HtmlPath = path.join(app.getAppPath(), 'build', 'res', 'notes.window.html');
-
-  constructor(private dbService = DatabaseService.getInstance()) {
-    super(WINDOW_OPTIONS);
-    this.loadURL(NotesBrowserWindow.HtmlPath);
-    this.dbService.getAllNotes().take(1).subscribe(notes => {
-      console.log('notes!');
-      console.log(notes);
-    });
-  }
-
   static _instance: NotesBrowserWindow = null;
   static getInstance = singleton(NotesBrowserWindow);
+
+  private noteSubmittedMessageSubscription = observeAsync<string>(
+    cb => this.ipc.on(NoteSubmittedMessage.type, (ev, data: string) => cb(null, data))
+  )
+  .do(x => console.log('got data', x))
+  .map(data => new NoteSubmittedMessage(null).deserializePayload(data))
+  .subscribe(msg => {
+    this.dbService.addNoteNow(msg.payload.noteBody);
+    this.sendNotes();
+  });
+
+  constructor(
+    private dbService = DatabaseService.getInstance(),
+    private ipc = ipcMain
+  ) {
+    super(WINDOW_OPTIONS);
+    this.loadURL(NotesBrowserWindow.HtmlPath);
+    this.sendNotes();
+  }
+
+  destroy() {
+    this.noteSubmittedMessageSubscription.unsubscribe();
+  }
+
+  private sendNotes() {
+    this.dbService.getAllNotes().take(1).subscribe(notes => {
+      let message = new AllNotesMessage({notes});
+      this.webContents.send(message.type, message.serializePayload());
+    });
+  }
 }

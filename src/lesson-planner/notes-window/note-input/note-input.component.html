@@ -1,11 +1,11 @@
 <div class="layout-container">
   <div class="input-section mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" id="sample3">
-    <label class="mdl-textfield__label" for="sample3">Text...</label>
+    <input class="mdl-textfield__input" type="text" #noteInput (keyup.enter)="submit(noteInput.value)">
+    <label class="mdl-textfield__label" for="sample3">Input a note...</label>
   </div>
   <div class="submit-button">
-    <button class="mdl-button mdl-js-button mdl-button--raised">
-      Button
+    <button class="mdl-button mdl-js-button mdl-button--raised" (click)="submit(noteInput.value)">
+      Submit
     </button>
   </div>
 </div>
